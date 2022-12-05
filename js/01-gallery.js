@@ -12,7 +12,23 @@ import { galleryItems } from './gallery-items.js';
   />
 </a>
 </div> */
-const gallery = document.querySelector('.gallery') 
+const gallery = document.querySelector('.gallery'); 
+
+
+gallery.addEventListener('click', onPictureClick);
+
+
+function onPictureClick(event){
+  event.preventDefault();
+  if(event.target.nodeName !== 'IMG'){
+    return;
+  } if (event.target.nodeName === 'IMG'){
+    console.log(event.target.dataset.source)
+    return event.target.dataset.source;
+  }
+};
+
+
 
 
 function renderGallery(){
@@ -29,6 +45,5 @@ function renderGallery(){
       </div>`), '');
     return gallery.insertAdjacentHTML('beforeend', `${htmlString}`)
     
-}
-
+};
 renderGallery();
