@@ -14,8 +14,9 @@ import { galleryItems } from './gallery-items.js';
 </div> */
 const gallery = document.querySelector('.gallery'); 
 
-
 gallery.addEventListener('click', onPictureClick);
+
+let instance;
 
 
 function onPictureClick(event){
@@ -23,10 +24,22 @@ function onPictureClick(event){
   if(event.target.nodeName !== 'IMG'){
     return;
   } if (event.target.nodeName === 'IMG'){
-    console.log(event.target.dataset.source)
-    return event.target.dataset.source;
+    instance = basicLightbox.create(`
+    <img src="${event.target.dataset.source}"></img>
+    `);
+    document.addEventListener('keydown', onEscKeydown);
+
   }
+  return instance.show()
 };
+
+function onEscKeydown (event){
+  // console.log(event.key)
+  if(event.key == 'Escape'){
+  instance.close()
+  document.removeEventListener('keydown', onEscKeydown);
+  };
+}
 
 
 
@@ -47,3 +60,6 @@ function renderGallery(){
     
 };
 renderGallery();
+
+
+
